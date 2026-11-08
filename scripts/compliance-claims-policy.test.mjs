@@ -5,6 +5,7 @@ import test from 'node:test';
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
 const ui = read('../src/components/ComplianceScientistBot.tsx');
 const server = read('../server.ts');
+const vite = read('../vite.config.ts');
 const presets = read('../src/components/WorkTogetherWithGptStudio.tsx');
 const roster = read('../src/components/AiModelsCollaborationManagement.tsx');
 const globalSync = read('../src/lib/global-sync.ts');
@@ -87,4 +88,10 @@ test('broker chat does not invent default policy settings when context is missin
   assert.match(brokerRoute, /policyFloor/);
   assert.match(brokerRoute, /policyMode/);
   assert.match(brokerRoute, /policyEpsilon/);
+});
+
+
+test('runtime and build configuration do not retain AI Studio starter attribution', () => {
+  assert.doesNotMatch(server, /aistudio-build/i);
+  assert.doesNotMatch(vite, /AI Studio/i);
 });
