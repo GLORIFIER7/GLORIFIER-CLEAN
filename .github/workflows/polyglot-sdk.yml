@@ -59,7 +59,7 @@ jobs:
     name: Java SDK (JDK 17)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
@@ -73,7 +73,7 @@ jobs:
     name: Kotlin SDK (JVM 17 / Kotlin 2.0)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
@@ -88,7 +88,7 @@ jobs:
     name: .NET SDK (8.0)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: "8.0.x"
@@ -99,7 +99,7 @@ jobs:
     name: Rust SDK (stable)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - name: Test native Rust SDK
         run: cargo test --manifest-path sdk/rust/Cargo.toml --all-targets
@@ -108,7 +108,7 @@ jobs:
     name: PHP SDK (8.2)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
@@ -121,7 +121,7 @@ jobs:
     name: Ruby SDK (3.2)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.2"
@@ -132,7 +132,7 @@ jobs:
     name: Swift SDK (5.9+)
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Test native Swift SDK
         run: swift test --package-path sdk/swift
 
@@ -140,7 +140,7 @@ jobs:
     name: Dart SDK (3.4)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dart-lang/setup-dart@v1
         with:
           sdk: "3.4.4"
@@ -154,7 +154,7 @@ jobs:
     name: JavaScript / TypeScript SDK (Node.js 24)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
@@ -165,7 +165,7 @@ jobs:
     name: SDK inventory, documentation and evidence alignment
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
@@ -184,7 +184,7 @@ jobs:
       matrix:
         os: [windows-2022, macos-15]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
@@ -203,7 +203,7 @@ jobs:
       matrix:
         os: [windows-2022, macos-15]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-go@v7
         with:
           go-version: "1.26.x"
@@ -224,7 +224,7 @@ jobs:
       matrix:
         os: [windows-2022, macos-15]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
