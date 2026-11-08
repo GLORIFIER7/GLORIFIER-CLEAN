@@ -24,7 +24,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Test intelligence endpoint validation
         run: node --test scripts/validate-intelligence-endpoint.test.mjs
@@ -40,7 +40,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Report missing intelligence endpoint configuration
         if: vars.GLORIFIER_INTELLIGENCE_URL == ''

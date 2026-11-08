@@ -84,7 +84,7 @@ jobs:
         os: [ubuntu-22.04, ubuntu-24.04]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Set up pinned Node.js
         uses: actions/setup-node@v7
         with:
@@ -133,7 +133,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Build distroless production image
         run: docker build --pull -f Dockerfile -t glorifier:ci .
       - name: Build Ubuntu 24.04 production image

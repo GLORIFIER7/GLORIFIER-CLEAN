@@ -36,7 +36,7 @@ jobs:
         python-version: ["3.10", "3.11", "3.12"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
@@ -56,7 +56,7 @@ jobs:
         go-version: ["1.26.x", "1.27.x"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Detect Go module
         id: go-module
         run: |
