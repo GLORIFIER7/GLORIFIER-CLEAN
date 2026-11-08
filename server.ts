@@ -1383,12 +1383,30 @@ app.post('/api/ai/broker-chat', async (req: Request, res: Response) => {
       typeof footprintsSummary === 'string' && footprintsSummary.trim()
         ? footprintsSummary.trim()
         : 'Not provided.';
+    const policyFloor =
+      typeof currentPolicy?.minimumMonthlyFloorUsd === 'number' &&
+      Number.isFinite(currentPolicy.minimumMonthlyFloorUsd)
+        ? `${currentPolicy.minimumMonthlyFloorUsd}/mo`
+        : 'Not provided.';
+    const policyMode =
+      typeof currentPolicy?.brokerMode === 'string' && currentPolicy.brokerMode.trim()
+        ? currentPolicy.brokerMode.trim()
+        : 'Not provided.';
+    const policyEpsilon =
+      typeof currentPolicy?.globalEpsilon === 'number' &&
+      Number.isFinite(currentPolicy.globalEpsilon)
+        ? String(currentPolicy.globalEpsilon)
+        : 'Not provided.';
+    const policyPretrainingPreference =
+      typeof currentPolicy?.allowAiModelPretraining === 'boolean'
+        ? currentPolicy.allowAiModelPretraining ? 'Yes' : 'No'
+        : 'Not provided.';
 
     const systemPrompt = `You are GLORIFIER's informational data-privacy and data-market assistant using ${chosenModelLabel}.
 Your role is to help the user understand privacy risks, evaluate user-provided offers, and plan steps the user may choose to take. Do not describe yourself as an autonomous broker, legal representative, privacy agent, or agent acting on behalf of the user.
 This endpoint generates text only and does not execute external actions. It does not access the user's accounts or internet data, contact brokers or buyers, negotiate or conclude contracts, send deletion or opt-out notices, enforce differential privacy, shield data streams, or change privacy settings. Do not claim or imply that any such action has been performed.
 Evidence discipline: Treat all supplied policy settings and data-stream summaries as unverified context, not telemetry. Do not invent active streams, connected services, personal data categories, compensation, privacy guarantees, provider/model execution, or completed outcomes. Say NOT VERIFIED when evidence is unavailable. Do not state that data is anonymized, shielded, deleted, or not shared unless specific server-backed evidence supports that statement.
-User-provided policy context (unverified): Floor = $${currentPolicy?.minimumMonthlyFloorUsd || 35}/mo; Mode = ${currentPolicy?.brokerMode || 'balanced'}; Epsilon ε = ${currentPolicy?.globalEpsilon || 0.35}; AI pretraining preference = ${currentPolicy?.allowAiModelPretraining ? 'YES' : 'NO'}.
+User-provided policy context (unverified): Floor = ${policyFloor}; Mode = ${policyMode}; Epsilon ε = ${policyEpsilon}; AI pretraining preference = ${policyPretrainingPreference}.
 Requested model preference: ${chosenModelLabel}. Execution details are reported separately by the server and must not be guessed.
 Data-stream context supplied by caller (unverified): ${dataStreamsContext}.
 Respond concisely. Distinguish recommendations from actions and externally verified outcomes.`;
