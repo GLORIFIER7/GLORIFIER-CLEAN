@@ -61,3 +61,20 @@ test('privacy demonstrations do not imply production safe harbor or runtime prot
   assert.match(privacyLab, /no production privacy-budget accounting or zero-disclosure guarantee has been verified/i);
   assert.match(privacyLab, /not sent or sold/i);
 });
+
+
+const brokerRoute = server
+  .split("app.post('/api/ai/broker-chat'")[1]
+  ?.split('// 3. AI Offer Evaluator')[0] ?? '';
+
+test('broker chat does not describe unverified telemetry or pretend to execute privacy actions', () => {
+  assert.doesNotMatch(brokerRoute, /autonomous personal data broker|Browsing, E-Commerce, Developer, Health telemetry active/i);
+  assert.match(brokerRoute, /Treat all supplied policy settings and data-stream summaries as unverified context/i);
+  assert.match(brokerRoute, /This endpoint generates text only and does not execute external actions/i);
+});
+
+test('broker chat handler failures return an unavailable response instead of a synthetic success', () => {
+  assert.match(brokerRoute, /catch \(error: any\)/);
+  assert.match(brokerRoute, /res\.status\(503\)\.json\(/);
+  assert.doesNotMatch(brokerRoute, /Broker Local Engine|gpt-4o-fallback|Local Enclave|zero raw unanonymized records shared/i);
+});
