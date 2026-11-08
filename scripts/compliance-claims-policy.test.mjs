@@ -78,3 +78,13 @@ test('broker chat handler failures return an unavailable response instead of a s
   assert.match(brokerRoute, /res\.status\(503\)\.json\(/);
   assert.doesNotMatch(brokerRoute, /Broker Local Engine|gpt-4o-fallback|Local Enclave|zero raw unanonymized records shared/i);
 });
+
+
+test('broker chat does not invent default policy settings when context is missing', () => {
+  assert.doesNotMatch(brokerRoute, /minimumMonthlyFloorUsd\\s*\\|\\|\\s*35/);
+  assert.doesNotMatch(brokerRoute, /brokerMode\\s*\\|\\|\\s*['"]balanced['"]/);
+  assert.doesNotMatch(brokerRoute, /globalEpsilon\\s*\\|\\|\\s*0\\.35/);
+  assert.match(brokerRoute, /policyFloor/);
+  assert.match(brokerRoute, /policyMode/);
+  assert.match(brokerRoute, /policyEpsilon/);
+});
